@@ -1,9 +1,6 @@
 package com.example.EasyTravelHolyday.models.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-
+@ToString
 public class Adresse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
