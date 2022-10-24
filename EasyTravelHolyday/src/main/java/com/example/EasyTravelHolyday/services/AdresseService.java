@@ -9,9 +9,10 @@ import com.example.EasyTravelHolyday.repository.AdresseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class AdresseService implements BaseService<AdresseDTO, Adresse, AdresseForm, AdresseUpdateForm>{
+public class AdresseService implements BaseService<AdresseDTO,Long, Adresse, AdresseForm, AdresseUpdateForm>{
     private final AdresseRepository adresseRepository;
     private final AdresseMappeur adresseMappeur;
 
@@ -22,7 +23,11 @@ public class AdresseService implements BaseService<AdresseDTO, Adresse, AdresseF
 
     @Override
     public List<AdresseDTO> getAll() {
-        return null;
+
+        return adresseRepository.findAll()
+                .stream()
+                .map(adresseMappeur::entityToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -34,18 +39,34 @@ public class AdresseService implements BaseService<AdresseDTO, Adresse, AdresseF
         return adresseMappeur.entityToDTO(adresseRepository.save(adresse));
     }
 
+
+
     @Override
-    public AdresseDTO remove(Adresse id) {
-        return null;
+    public AdresseDTO uptate(Long aLong, AdresseUpdateForm adresseUpdateForm) {
+
+            Adresse adresse = adresseRepository.findById(aLong).orElseThrow();
+            adresse.setRue(adresseUpdateForm.getRue());
+            return adresseMappeur.entityToDTO(adresseRepository.save(adresse));
+
     }
 
     @Override
-    public AdresseDTO uptate(Adresse id, AdresseUpdateForm update) {
-        return null;
+    public AdresseDTO findOne(Long aLong) {
+
+        return adresseRepository.findById(aLong)
+                .map(adresseMappeur::entityToDTO)
+                .orElseThrow();
+
     }
 
     @Override
-    public AdresseDTO findOne(Adresse id) {
-        return null;
+    public AdresseDTO remove(Long iddres) {
+        Adresse adresse = adresseRepository.findById(iddres).orElseThrow();
+        /** now you can call delete from repository and pass the variable entity personne (it is a void methode)**/
+        adresseRepository.delete(adresse);
+        return adresseMappeur.entityToDTO(adresse);
     }
+
+
+
 }
