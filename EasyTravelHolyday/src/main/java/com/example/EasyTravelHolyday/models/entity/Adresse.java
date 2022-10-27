@@ -23,4 +23,7 @@ public class Adresse {
     private String rue;
     @Column(nullable = false)
     private int numero;
+
+    @OneToOne(mappedBy = "adresseDestination")
+    private Destination conserneDestination;
 }
