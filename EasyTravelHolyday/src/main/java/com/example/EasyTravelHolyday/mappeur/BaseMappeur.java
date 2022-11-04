@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface BaseMappeur <DTO,Entity,Form,Updateform>{
 
-    DTO entityToDTO(Entity adresse );
-    Entity formToEntity(Form adresseform);
-    Entity formUpdateToEntity(Updateform adresseupdateform);
+    DTO entityToDTO(Entity entity );
+    Entity formToEntity(Form entityform);
+    Entity formUpdateToEntity(Updateform entityupdateform);
 }

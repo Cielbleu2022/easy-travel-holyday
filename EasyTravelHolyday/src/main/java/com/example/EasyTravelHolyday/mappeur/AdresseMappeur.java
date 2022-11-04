@@ -1,6 +1,7 @@
 package com.example.EasyTravelHolyday.mappeur;
 
 import com.example.EasyTravelHolyday.models.dto.AdresseDTO;
+import com.example.EasyTravelHolyday.models.dto.SmalDTO.SmalAdresseDTO;
 import com.example.EasyTravelHolyday.models.entity.Adresse;
 import com.example.EasyTravelHolyday.models.form.AdresseForm;
 import com.example.EasyTravelHolyday.models.form.AdresseUpdateForm;
@@ -23,8 +24,19 @@ public class AdresseMappeur implements BaseMappeur<AdresseDTO, Adresse, AdresseF
                 .numero(adresse.getNumero())
                 .build()
                 ;
-        return adresseDTO;
+     return adresseDTO;
 
+    }
+
+    public SmalAdresseDTO toDtoSmall(Adresse adresse) {
+        if(adresse==null)return null;
+        return SmalAdresseDTO.builder()
+                .id(adresse.getId())
+                .pays(adresse.getPays())
+                .ville(adresse.getVille())
+                .rue(adresse.getRue())
+                .numero(adresse.getNumero())
+                .build();
     }
 
     @Override
