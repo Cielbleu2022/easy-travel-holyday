@@ -4,10 +4,11 @@ import com.example.EasyTravelHolyday.models.dto.OffreDTO;
 import com.example.EasyTravelHolyday.models.entity.Offre;
 import com.example.EasyTravelHolyday.models.form.OffreForm;
 import com.example.EasyTravelHolyday.models.form.OffreUpdateForm;
+import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-
+@Service
 public class OffreMappeur implements BaseMappeur<OffreDTO, Offre, OffreForm, OffreUpdateForm>{
     private  final TrajetMappeur trajetMappeur;
     private final TypeOffreMappeur typeOffreMappeur;
@@ -32,8 +33,8 @@ public class OffreMappeur implements BaseMappeur<OffreDTO, Offre, OffreForm, Off
         .nbLike(offre.getNbLike())
         .publier(offre.isPublier())
         .image(offre.getImage())
-        .smalldestinationList(offre.getDestinations().stream().map(destinationMappeur::entityTosmalDTO).collect(Collectors.toSet()))
         .trajets(offre.getTrajets().stream().map(trajetMappeur::entityToDTO).collect(Collectors.toSet()))
+        .smalldestinationList(offre.getDestinations().stream().map(destinationMappeur::entityTosmalDTO).collect(Collectors.toSet()))
         .typeOffre(typeOffreMappeur.entityToDTO(offre.getTypeOffre()));
 
 
@@ -42,11 +43,24 @@ public class OffreMappeur implements BaseMappeur<OffreDTO, Offre, OffreForm, Off
 
     @Override
     public Offre formToEntity(OffreForm offreForm) {
-        return null;
+        Offre offre= new Offre();
+        offre.setTitre(offreForm.getTitre());
+        offre.setPrix(offreForm.getPrix());
+        offre.setNbplacetotal(offreForm.getNbplacetotal());
+        offre.setDateDepart(offreForm.getDateDepart());
+        offre.setDateArrive(offreForm.getDateArrive());
+        offre.setNbLike((int)offreForm.getPrix()*offreForm.getNbplacetotal());
+        offre.setImage(offreForm.getImage());
+        return offre;
     }
 
     @Override
     public Offre formUpdateToEntity(OffreUpdateForm offreUpdateForm) {
-        return null;
+        Offre offreupdate = new Offre();
+        offreupdate.setTitre(offreUpdateForm.getTitre());
+        offreupdate.setPrix(offreUpdateForm.getPrix());
+        offreupdate.setNbplacetotal(offreUpdateForm.getNbplacetotal());
+
+        return offreupdate;
     }
 }
