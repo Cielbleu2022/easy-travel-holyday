@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Validated
-public class TypeOffreUpdateForm {
+public class TypeOffresForm {
     @NotBlank
     private String nom;
 }

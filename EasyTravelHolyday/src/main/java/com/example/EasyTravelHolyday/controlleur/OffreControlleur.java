@@ -23,4 +23,5 @@ public class OffreControlleur {
         return ResponseEntity
                 .ok(offreService.getAll());
     }
+
 }

@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @Service
 public class OffreMappeur implements BaseMappeur<OffreDTO, Offre, OffreForm, OffreUpdateForm>{
     private  final TrajetMappeur trajetMappeur;
-    private final TypeOffreMappeur typeOffreMappeur;
+    private final TypeOffresMappeur typeOffresMappeur;
     protected  final  DestinationMappeur destinationMappeur;
 
-    public OffreMappeur(TrajetMappeur trajetMappeur, TypeOffreMappeur typeOffreMappeur, DestinationMappeur destinationMappeur) {
+    public OffreMappeur(TrajetMappeur trajetMappeur, TypeOffresMappeur typeOffresMappeur, DestinationMappeur destinationMappeur) {
         this.trajetMappeur = trajetMappeur;
-        this.typeOffreMappeur = typeOffreMappeur;
+        this.typeOffresMappeur = typeOffresMappeur;
         this.destinationMappeur = destinationMappeur;
     }
 
@@ -35,7 +35,7 @@ public class OffreMappeur implements BaseMappeur<OffreDTO, Offre, OffreForm, Off
         .image(offre.getImage())
         .trajets(offre.getTrajets().stream().map(trajetMappeur::entityToDTO).collect(Collectors.toSet()))
         .smalldestinationList(offre.getDestinations().stream().map(destinationMappeur::entityTosmalDTO).collect(Collectors.toSet()))
-        .typeOffre(typeOffreMappeur.entityToDTO(offre.getTypeOffre()));
+        .typeOffre(typeOffresMappeur.entityToDTO(offre.getTypeOffre()));
 
 
         return builder.build();

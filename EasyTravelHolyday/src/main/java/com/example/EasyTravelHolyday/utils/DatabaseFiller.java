@@ -1,7 +1,11 @@
 package com.example.EasyTravelHolyday.utils;
 
 import com.example.EasyTravelHolyday.models.entity.Offre;
+import com.example.EasyTravelHolyday.models.entity.Transport;
+import com.example.EasyTravelHolyday.models.entity.TypeOffres;
 import com.example.EasyTravelHolyday.repository.OffreRepository;
+import com.example.EasyTravelHolyday.repository.TransportRepository;
+import com.example.EasyTravelHolyday.repository.TypeOffresRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -10,14 +14,19 @@ import java.time.LocalDate;
 @Component
 public class DatabaseFiller implements InitializingBean {
     private final OffreRepository offreRepository;
-
-    public DatabaseFiller(OffreRepository offreRepository) {
+    private final TypeOffresRepository typeOffreRepository;
+    private final TransportRepository transportRepository;
+    public DatabaseFiller(OffreRepository offreRepository, TypeOffresRepository typeOffreRepository, TransportRepository transportRepository) {
         this.offreRepository = offreRepository;
+        this.typeOffreRepository = typeOffreRepository;
+        this.transportRepository = transportRepository;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         //saveOffre();
+        //saveTypeOffre();
+        //saveTransport();
     }
     private Offre saveOffre() {
         Offre offre=new Offre();
@@ -40,5 +49,34 @@ public class DatabaseFiller implements InitializingBean {
 
         return offre;
 
+    }
+    private TypeOffres saveTypeOffre(){
+        TypeOffres typ=new TypeOffres();
+        typ.setNom("Long Séjour");
+        typeOffreRepository.save(typ);
+
+        typ=new TypeOffres();
+        typ.setNom("CIRCUIT Séjour");
+        typeOffreRepository.save(typ);
+
+        typ=new TypeOffres();
+        typ.setNom("UNJOUR Séjour");
+        typeOffreRepository.save(typ);
+        return typ;
+    }
+
+    private void  saveTransport(){
+        Transport transport=new Transport();
+        transport.setNom("Avion");
+        transportRepository.save(transport);
+
+        transport=new Transport();
+        transport.setNom("Train");
+        transportRepository.save(transport);
+
+        transport=new Transport();
+        transport.setNom("Bus");
+
+        transportRepository.save(transport);
     }
 }
